@@ -7,7 +7,7 @@
 
 import UIKit
 import MapKit
-import CoreLocation   // Kullanıcının lokasyonunu almak için bu kütüphaneyi çağırıyoruz.
+import CoreLocation   // Kullanıcının lokasyonunu almak için bu kütüphaneyi kullanıyoruz.
 import CoreData
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -37,7 +37,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         view.addGestureRecognizer(tap)
         
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRecognizer:))) //* Kullanıcı uzun bastı mı basmadı mı onu anlayacağız.
-        gestureRecognizer.minimumPressDuration = 1 // Kaç saniye basılı tutunca çalışacağını seçiyoruz. 1 diyemeyiz çok kısa. En ideal 2-3 kullanılır.
+        gestureRecognizer.minimumPressDuration = 1 // Kaç saniye basılı tutunca çalışacağını seçiyoruz.
         mapView.addGestureRecognizer(gestureRecognizer)
             
         if selectedTitle != "" {   // TableView da eğer seçtiğimiz yer boş değil ise tıkladığımızda o yerin id sini, bilgilerini bize ver demek. Pinli yeri göster demek.
@@ -68,7 +68,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let results = try context.fetch(fetchRequest)   // Sorguyu çalıştır ve sonuçları al
             if results.count > 0 {  // Eğer sonuçlar varsa
                 for result in results as! [NSManagedObject] {  // Her bir sonuç üzerinde dön
-                    if let title = result.value(forKey: "title") as? String {  // Title'a karşılık gelen değeri ver ve o değer string olacak demek.
+                    if let title = result.value(forKey: "title") as? String {
                         annotationTitle = title
                         
                         if let subtitle = result.value(forKey: "subtitle") as? String {
@@ -110,7 +110,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         view.endEditing(true)
     }
     
-    func setMyCurrentLocation (){  // Konumumuzu belirleyio hafızasında tutuyor o an için
+    func setMyCurrentLocation (){  // Konumumuzu belirleyip hafızasında tutuyor o an için
         let lat = locationManager.location?.coordinate.latitude;
         let longi = locationManager.location?.coordinate.longitude;
         let location = CLLocationCoordinate2D(latitude: lat!, longitude: longi!)
@@ -129,7 +129,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             chosenLongitude = touchedCoordinates.longitude
             
             let annotation = MKPointAnnotation()    // Pin oluşturuyoruz. Annotation deniliyor genelde.
-            annotation.coordinate = touchedCoordinates   // Annotation' a koordinar veriyoruz.
+            annotation.coordinate = touchedCoordinates   // Annotation' a koordinat veriyoruz.
             annotation.title = nameText.text  // İsmini veriyoruz.
             annotation.subtitle = commentText.text  // Alt başlık veriyoruz.
             self.mapView.addAnnotation(annotation)

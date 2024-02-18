@@ -24,7 +24,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        getData() // Lokasyon listesini çek test
+        getData() // Lokasyon listesini çek
     }
     override func viewWillAppear(_ animated: Bool) {  // "viewDidLoad" bir kere çağrılırken "viewWillAppear" her bu görünüm göründüğünde çağrıldığı için burada yapıyoruz.
         NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("newPlace"), object: nil)
@@ -33,20 +33,20 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc func getData() { // Core Data'dan verileri bu fonksiyonla çekiyoruz.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Places") // Fetch: Tut getir demek. Önce bunu oluşturuyoruz.
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Places")
         fetchRequest.returnsObjectsAsFaults = false
         
         do {
             let results = try context.fetch(fetchRequest)
             if results.count > 0 {
-                self.titleArray.removeAll(keepingCapacity: false)  // Kapasiteyi tutma diyoruz
+                self.titleArray.removeAll(keepingCapacity: false)  // Kapasiteyi tutma
                 self.idArray.removeAll(keepingCapacity: false)
                 
                 for result in results as! [NSManagedObject] {  // Tek bir result'a ulaşmak için yaptık. Core Data model objesi : NSManagedObject
                     if let title = result.value(forKey: "title") as? String {
                         self.titleArray.append(title)
                     }
-                    if let id = result.value(forKey: "id") as? UUID { // Birden fazla isim olabilir o yüzden id ekledik burada. Bunu ileride kullanacağız.
+                    if let id = result.value(forKey: "id") as? UUID { // Birden fazla isim olabilir o yüzden id ekledik.
                         self.idArray.append(id)
                     }
                     tableView.reloadData()

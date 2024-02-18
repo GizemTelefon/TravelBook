@@ -24,7 +24,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        getData() // Lokasyon listesini çek
+        getData() // Lokasyon listesini çek test
     }
     override func viewWillAppear(_ animated: Bool) {  // "viewDidLoad" bir kere çağrılırken "viewWillAppear" her bu görünüm göründüğünde çağrıldığı için burada yapıyoruz.
         NotificationCenter.default.addObserver(self, selector: #selector(getData), name: NSNotification.Name("newPlace"), object: nil)
